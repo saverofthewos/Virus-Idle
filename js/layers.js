@@ -22,7 +22,7 @@ addLayer("rat", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "R", description: "turn your viruses into a rat", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "r", description: "turn your viruses into a rat", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true}
 })
