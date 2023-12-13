@@ -24,5 +24,10 @@ addLayer("rat", {
     hotkeys: [
         {key: "r", description: "turn your viruses into a rat", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    upgrades: {
+        11: {
+
+        },
+    },
     layerShown(){return true}
 })
