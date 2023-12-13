@@ -13,7 +13,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
+	num: "1.0",
 	name: "The Start of Virus",
 }
 
@@ -42,6 +42,9 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if (hasUpgrade('rat', 11)) gain = gain.times(2);
+	if (hasUpgrade('rat', 12)) gain = gain.times(2);
+	if (hasUpgrade("rat", 13)) gain = gain.times(upgradeEffect("rat", 13));
 	return gain
 }
 
@@ -55,7 +58,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("100"))
 }
 
 

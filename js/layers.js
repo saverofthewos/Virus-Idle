@@ -1,5 +1,5 @@
 addLayer("rat", {
-    name: "Rat", // This is optional, only used in a few places, If absent it just uses the layer id.
+    name: "rat", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "R", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
@@ -7,7 +7,7 @@ addLayer("rat", {
 		points: new Decimal(0),
     }},
     color: "#4BDC13",
-    requires: new Decimal(10), // Can be a function that takes requirement increases into account
+    requires: new Decimal(5), // Can be a function that takes requirement increases into account
     resource: "Rats", // Name of prestige currency
     baseResource: "viruses", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
@@ -22,11 +22,27 @@ addLayer("rat", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "r", description: "turn your viruses into a rat", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "r", description: "R: turn your viruses into a rat", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     upgrades: {
         11: {
-
+        title: "computer mouse",
+        description: "make your rat twice as rat",
+        cost: new Decimal(1),
+        },
+        12: {
+            title: "ratrus",
+            description: "make your [REDACTED] twice as [REDACTED]",
+            cost: new Decimal(5),
+        },
+        13: {
+            title: "rat employment",
+            description: "make your rats employed in virusland",
+            cost: new Decimal(10 ),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
     },
     layerShown(){return true}
