@@ -13,8 +13,10 @@ addLayer("rat", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
-    gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
+    gainMult() {
+        let mult = new Decimal(1)
+        if (hasUpgrade('rat', 14)) mult = mult.times(upgradeEffect('rat', 14))
+        if (hasUpgrade('rat', 15)) mult = mult.times(upgradeEffect('rat', 15))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -38,9 +40,27 @@ addLayer("rat", {
         13: {
             title: "rat employment",
             description: "make your rats employed in virusland",
-            cost: new Decimal(10 ),
+            cost: new Decimal(10),
             effect() {
                 return player[this.layer].points.add(1).pow(0.5)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        14: {
+            title: "lossless virus-rat conversion",
+            description: "viruses now convert to rats without losing the virus",
+            cost: new Decimal(25),
+            effect() {
+                return player.points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
+        },
+        15: {
+            title: "computer rat",
+            description: "explosive rat production",
+            cost: new Decimal(50),
+            effect() {
+                return player.points.add(1).pow(0.15)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
